@@ -126,6 +126,23 @@ class Depot {
     return ancienne == photoChemin ? null : ancienne;
   }
 
+  /// La photo a été retirée sur le serveur : on l'oublie et on renvoie le fichier local à supprimer.
+  Future<String?> oublierPhoto(int etudiant) async {
+    final lignes = await _base.query(
+      'etudiants',
+      columns: ['photo_chemin'],
+      where: 'id = ?',
+      whereArgs: [etudiant],
+    );
+    await _base.update(
+      'etudiants',
+      {'photo_chemin': null},
+      where: 'id = ?',
+      whereArgs: [etudiant],
+    );
+    return lignes.isEmpty ? null : lignes.first['photo_chemin'] as String?;
+  }
+
   Future<void> retirerUnPlat(int etudiant) => _base.rawUpdate(
     'UPDATE etudiants SET solde_plats = solde_plats - 1 WHERE id = ?',
     [etudiant],

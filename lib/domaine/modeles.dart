@@ -168,7 +168,8 @@ class Etudiant {
         ? null
         : DateTime.parse(json['fin_abonnement'] as String),
     carteBloquee: json['carte_bloquee'] as bool,
-    photoUrl: json['photo'] as String,
+    // Photo facultative : sans photo, l'adresse est vide et l'écran affiche les initiales.
+    photoUrl: json['photo'] as String? ?? '',
     dateMaj: json['date_maj'] as String,
   );
 
@@ -198,7 +199,11 @@ class Etudiant {
   /// Dernier jour de validité de l'abonnement (externes), inclus.
   final DateTime? finAbonnement;
   final bool carteBloquee;
+
+  /// Adresse de la photo sur le serveur ; vide si l'étudiant n'a pas de photo.
   final String photoUrl;
+
+  bool get aUnePhoto => photoUrl.isNotEmpty;
   final String dateMaj;
   final String? photoChemin;
 

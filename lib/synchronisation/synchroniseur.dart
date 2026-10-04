@@ -153,6 +153,12 @@ class Synchroniseur {
     for (var i = 0; i < etudiants.length; i += 4) {
       await Future.wait(
         etudiants.skip(i).take(4).map((etudiant) async {
+          // Pas (ou plus) de photo : on retire l'ancienne, l'écran affichera les initiales.
+          if (!etudiant.aUnePhoto) {
+            final ancienne = await _depot.oublierPhoto(etudiant.id);
+            if (ancienne != null) await _supprimer([ancienne]);
+            return;
+          }
           try {
             // Nom unique par version de la fiche : l'écran n'affiche jamais une ancienne photo en cache.
             final version = etudiant.dateMaj.replaceAll(RegExp(r'\D'), '');

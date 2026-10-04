@@ -1,0 +1,34 @@
+name: resto_terminal
+description: "Terminal de scan RESTO-CONNECT : vérifie les étudiants au comptoir, même sans Internet."
+publish_to: 'none'
+
+# Version de l'application : MAJEURE.MINEURE.CORRECTIF+NUMÉRO_DE_BUILD
+# - Le numéro de build (après le +) doit AUGMENTER à chaque publication (exigence Android / iOS).
+# - Le serveur peut imposer une version minimale (VERSION_MIN_APPLICATION) : voir DOCUMENTATION.md.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mobile_scanner: ^7.4.2            # Lecture des QR avec la caméra
+  sqflite: ^2.4.4                   # Base locale : le terminal travaille hors ligne
+  path: ^1.9.1
+  path_provider: ^2.1.6             # Dossier privé des photos
+  http: ^1.6.0                      # Appels à l'API
+  flutter_secure_storage: ^11.2.0   # Jetons de connexion chiffrés
+  audioplayers: ^6.8.1              # Bip vert / bip rouge
+  uuid: ^4.6.0                      # Identifiants générés hors ligne
+  package_info_plus: ^10.2.2        # Version installée (contrôle de mise à jour)
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/sons/
